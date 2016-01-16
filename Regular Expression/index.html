@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Regular Expression</title>
+</head>
+<body>
+	
+	<script type="text/javascript">
+		// Test string contain "DK" or not
+		var regexStr = /DK/;
+		if(regexStr.test("DKNY is the most handsome guy in the world")){
+			document.write("Contain 'DK'");
+		}else{
+			document.write("No contain 'DK'");
+		}
+		document.write("<br />");
+
+		// Test string contain digit or not
+		var regexStr = /[0-9]/;
+		if(regexStr.test("I want to travel to Singapre & Malaysia in next 2 months")){
+			document.write("Contain digit");
+		}else{
+			document.write("No contain digit");
+		}
+		document.write("<br />");
+
+		// Test string contain 'N' 10 times stand near each other
+		var regexStr = /N{10}/;
+		if(regexStr.test("I want to travel to Singapre NNNNNNNNNNN & Malaysia in next 2 months")){
+			document.write("Contain 10 'N'");
+		}else{
+			document.write("No contain 10 'N'");
+		}
+		document.write("<br />");
+
+		// Test string contain exactly domain truongphusteel.vn
+		var regexStr = /^truongphusteel\.vn$/;
+		if(regexStr.test("truongphusteel.vn")){
+			document.write("Contain exactly domain truongphusteel.vn");
+		}else{
+			document.write("No contain exactly domain truongphusteel.vn");
+		}
+		document.write("<br />");
+
+		// Kiểm tra chuỗi định dạng mã thẻ cào xxxx-xxxx-xxxx-xxxx và x chính là các chữ số.
+		var regexStr = /^\d{4}-\d{4}-\d{4}-\d{4}$/;
+		if(regexStr.test("1111-2222-3333-4443")){
+			document.write("xxxx-xxxx-xxxx-xxxx right");
+		}else{
+			document.write("xxxx-xxxx-xxxx-xxxx wrong");
+		}
+		document.write("<br />");
+	</script>
+</body>
+</html>
