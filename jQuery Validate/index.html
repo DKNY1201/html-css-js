@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery Validate</title>
+	<style type="text/css">
+		.success{border: solid 1px blue;}
+        .error {border:solid 1px red;}
+	</style>
+</head>
+<body>
+  	<header class="container">
+        <h1>BASIC DEMO</h1>
+    </header>
+    <div class="container">
+        <form id="form">
+            <div>
+                <input type="text" name="name" id="name" form="form" />
+                <label for="name">Name</label>
+            </div>
+            <div>
+                <input type="text" name="nickname" id="nickname" />
+                <label for="nickname">Nickname</label>
+            </div>
+            <div>
+                <input type="text" name="site" id="site" />
+                <label for="site">Site</label>
+            </div>
+            <div>
+                <input type="text" name="age" id="age" />
+                <label for="age">Age</label>
+            </div>
+            <div>
+            	<input type="password" name="pass" id="pass">
+            	<label for="pass">Password</label>
+            </div>
+            <div>
+            	<input type="password" name="repass" id="repass">
+            	<label for="repass">Re-enter password</label>
+            </div>
+            <div>
+            	<input type="text" name="math" id="math">
+            	<label for="math">3 + 4 = ?</label>
+            </div>
+            <div>
+                <button type="submit">Send</button>
+                <button type="reset">Reset</button>
+            </div>
+        </form>
+    </div>   
+	<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+	<script type="text/javascript" src="js/jquery.validate.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$.validator.addMethod("EMAIL", function(value, element) {
+                return this.optional(element) || /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,5}$/i.test(value);
+            }, "Email Address is invalid: Please enter a valid email address.");
+
+            $.validator.addMethod("PASSWORD",function(value,element){
+                return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/i.test(value);
+            },"Passwords are 8-16 characters with uppercase letters, lowercase letters and at least one number.");
+
+            $.validator.addMethod("SUBMIT",function(value,element){
+                return this.optional(element) || /[^ ]/i.test(value);
+            },"You did not click the submit button.");
+
+            $.validator.addMethod("domain",function(value,element){
+            	return this.optional(element) || /^http:\/\/truongphusteel.vn$/.test(value);
+            },"Please input specific domain");
+
+            $.validator.addMethod("math",function(value,element,param){
+            	return value == param[0] + param[1];
+            },"Please learn math")
+
+            // Validate signup form on keyup and submit
+            $("#LOGIN").validate({
+                rules: {
+                    EMAIL: "required EMAIL",
+                    PASSWORD: "required PASSWORD",
+                    SUBMIT: "required SUBMIT",
+                },
+            });
+
+        	$("#form").validate({
+        		onkeyup: true,
+        		rules: {
+        			name: {
+        				required: true,
+        				minlength: 7
+        			},
+        			nickname: "required",
+        			site: {
+        				required: true,
+        				domain: true
+        			},
+        			age: {
+        				required: true,
+        				digits: true,
+        				min: 18
+        			},
+        			pass: {
+        				required: true,
+        				PASSWORD: true
+        			},
+        			repass: {
+        				required: true,
+        				equalTo: pass
+        			},
+        			math:{
+        				math: [3,4]
+        			}
+        		},
+        		messages: {
+        			name: {
+        				required: "Please input your name",
+        				minlength: "Name must more than 7 characters"
+        			},
+        			site:{
+        				required: "Please input your site",
+        				url: "Please input valid url"
+        			},
+        			age:{
+        				required: "Please input your age",
+        				digits: "Age must be digits",
+        				min: "Age must more than 18"
+        			},
+        			pass:{
+        				required: "Please input password",
+        				minlength: "Password must longer than 8 characters"
+        			},
+        			repass:{
+        				equalTo: "Re-password and password is difference"
+        			}
+        		},
+        		submitHandler: function(form) {
+				    $('button[type="submit"]').prop("disabled",true).html("Submitting...");
+				    return false;
+				  }
+        	})
+        });
+
+		var a=5;
+		var b=2;
+		/*var d = {
+			a: 10,
+			b: 20
+		}*/
+		//console.log(c || a);
+		//console.log(d && d.c);
+
+		var regex = /[abc]/;
+		var a="sa";
+		console.log(regex.test(a));
+	</script>
+</body>
+</html>
